@@ -12,17 +12,15 @@
 
 #include "get_next_line.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strdup(const char *s1)
 {
 	char	*ptr;
 	size_t	i;
-	size_t	j;
+	size_t	len;
 
 	i = 0;
-	j = 0;
-	if (s1 == NULL || s2 == NULL)
-		return (NULL);
-	ptr = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	len = ft_strlen(s1) + 1;
+	ptr = malloc(ft_strlen(s1) + 1);
 	if (ptr == NULL)
 		return (NULL);
 	while (s1[i])
@@ -30,13 +28,38 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		ptr[i] = s1[i];
 		i++;
 	}
+	ptr[i] = '\0';
+	if (ft_strlen(ptr) > len)
+		return (NULL);
+	return (ptr);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*ptr;
+	size_t	i;
+	size_t	j;
+
+	i = -1;
+	j = 0;
+	if (!s1)
+		s1 = ft_strdup("");
+	if (!s2)
+		s2 = ft_strdup("");
+	ptr = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!ptr)
+		return (NULL);
+	while (s1[++i])
+		ptr[i] = s1[i];
 	while (s2[j])
 	{
 		ptr[i] = s2[j];
 		i++;
-		j++;
+		if (s2[j++] == '\n')
+			break ;
 	}
-	return (ptr[i] = '\0', ptr);
+	ptr[i] = '\0';
+	return (ptr);
 }
 
 size_t	ft_strlen(const char *s)
@@ -51,20 +74,22 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*gnl_strchr(const char *s, int c)
+int	search_for(const char *s, char c)
 {
 	unsigned int	i;
+	unsigned int	len;
 
-	i = 0;
 	if (!s)
-		return (NULL);
-	while (i <= ft_strlen(s))
+		return (0);
+	i = 0;
+	len = ft_strlen(s);
+	while (i <= len)
 	{
-		if (s[i] == (char)c)
-			return ((char *)&s[i]);
+		if (s[i] == c)
+			return (i);
 		i++;
 	}
-	return (NULL);
+	return (-1);
 }
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)

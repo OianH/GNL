@@ -22,7 +22,7 @@ char	*ft_strdup(const char *s1)
 	len = ft_strlen(s1) + 1;
 	ptr = malloc(ft_strlen(s1) + 1);
 	if (ptr == NULL)
-		return (NULL);
+		return (free(ptr), NULL);
 	while (s1[i])
 	{
 		ptr[i] = s1[i];
@@ -34,7 +34,7 @@ char	*ft_strdup(const char *s1)
 	return (ptr);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*ptr;
 	size_t	i;
@@ -48,7 +48,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		s2 = ft_strdup("");
 	ptr = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!ptr)
-		return (NULL);
+		return (free(ptr), NULL);
 	while (s1[++i])
 		ptr[i] = s1[i];
 	while (s2[j])
@@ -59,7 +59,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 			break ;
 	}
 	ptr[i] = '\0';
-	return (ptr);
+	return (free(s1), ptr);
 }
 
 size_t	ft_strlen(const char *s)

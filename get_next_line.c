@@ -6,7 +6,7 @@
 /*   By: oiahidal <oiahidal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 01:14:31 by oiahidal          #+#    #+#             */
-/*   Updated: 2024/09/19 10:33:48 by oiahidal         ###   ########.fr       */
+/*   Updated: 2024/09/20 13:41:05 by oiahidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,6 @@ void	update_buffer(char *buff)
 		i++;
 	}
 	buff[i] = '\0';
-}
-
-char	*extract_line(char *rest)
-{
-	char	*line;
-	int		i;
-
-	i = 0;
-	while (rest[i] && rest[i] != '\n')
-		i++;
-	line = malloc(sizeof(char) * (i + 2));
-	if (!line)
-		return (NULL);
-	ft_strlcpy(line, rest, i + 1);
-	return (line);
 }
 
 char	*get_next_line(int fd)
@@ -73,7 +58,7 @@ char	*get_next_line(int fd)
 
 int main(void)
 {
-	int fd = open("test.txt", O_RDONLY);
+	int fd = open("test10.txt", O_RDONLY);
 	if (fd < 0)
 		return (printf("Error al abrir el archivo\n"), 1);
 	char *line;
